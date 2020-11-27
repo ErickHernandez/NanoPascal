@@ -1,0 +1,104 @@
+#include "lexer.h"
+//include "utils/common_funcs.h"
+
+
+/*!fa2lexer
+    %option generate.tokens = true;
+
+    %file "Comment.jff";
+    %file "MultComment.jff";
+    %file "Number.jff";
+    %file "Identifier.jff";
+    %file "Symbols.jff";
+    %file "Start.jff";
+
+    %token.descriptions {
+        ID = "Identifier",
+        KwProgram = "program",
+        KwVar = "var",
+        KwArray = "array",
+        KwOf = "of",
+        KwInteger = "integer",
+        KwBoolean = "boolean",
+        KwChar = "char",
+        KwNot = "not",
+        KwAnd = "and",
+        KwOr = "or",
+        KwXor = "xor",
+        KwShl = "shl",
+        KwShr = "shr",
+        KwDiv = "div",
+        KwMod = "mod",
+        KwBegin = "begin",
+        KwEnd = "end",
+        KwBreak = "break",
+        KwIf = "if",
+        KwThen = "then",
+        KwElse = "else",
+        KwWhile = "while",
+        KwRepeat = "repeat",
+        KwUntil = "until",
+        KwFor = "for",
+        KwDo = "do",
+        KwWrite = "write",
+        KwWriteln = "writeln"
+    }
+
+    %generate.state_enum(State);
+*/
+
+Token Lexer::getNextToken()
+{
+    text = "";
+/*!fa2lexer
+    %generate.lexer(text);
+*/
+}
+
+Token Lexer::findKeyword(const std::string& str)
+{
+    if(isEqual(str, "program")){ return Token::KwProgram ;}
+    else if(isEqual(str, "var")){ return Token::KwVar ;}
+    else if(isEqual(str, "array")){ return Token::KwArray ;}
+    else if(isEqual(str, "of")){ return Token::KwOf ;}
+    else if(isEqual(str, "integer")){ return Token::KwInteger ;}
+    else if(isEqual(str, "boolean")){ return Token::KwBoolean ;}
+    else if(isEqual(str, "char")){ return Token::KwChar ;}
+    else if(isEqual(str, "not")){ return Token::KwNot ;}
+    else if(isEqual(str, "and")){ return Token::KwAnd ;}
+    else if(isEqual(str, "or")){ return Token::KwOr ;}
+    else if(isEqual(str, "xor")){ return Token::KwXor ;}
+    else if(isEqual(str, "shl")){ return Token::KwShl ;}
+    else if(isEqual(str, "shr")){ return Token::KwShr ;}
+    else if(isEqual(str, "div")){ return Token::KwDiv ;}
+    else if(isEqual(str, "mod")){ return Token::KwMod ;}
+    else if(isEqual(str, "begin")){ return Token::KwBegin ;}
+    else if(isEqual(str, "end")){ return Token::KwEnd ;}
+    else if(isEqual(str, "break")){ return Token::KwBreak ;}
+    else if(isEqual(str, "if")){ return Token::KwIf ;}
+    else if(isEqual(str, "then")){ return Token::KwThen ;}
+    else if(isEqual(str, "else")){ return Token::KwElse ;}
+    else if(isEqual(str, "while")){ return Token::KwWhile ;}
+    else if(isEqual(str, "repeat")){ return Token::KwRepeat ;}
+    else if(isEqual(str, "until")){ return Token::KwUntil ;}
+    else if(isEqual(str, "for")){ return Token::KwFor ;}
+    else if(isEqual(str, "do")){ return Token::KwDo ;}
+    else if(isEqual(str, "write")){ return Token::KwWrite ;}
+    else if(isEqual(str, "writeln")){ return Token::KwWriteln ;}
+    else { return Token::ID; }
+}
+
+
+const char *Lexer::tokenToString(Token tk)
+{
+/*!fa2lexer
+    %generate.toString(tk);
+*/    
+}
+
+bool Lexer::isEqual(const std::string& a, const std::string& b)
+{
+    return std::equal(a.begin(), a.end(), b.begin(), [](char a, char b) {
+                        return tolower(a) == tolower(b);
+                    });
+}

@@ -1,0 +1,13 @@
+// hola loco
+
+{Qué ondas loquillo
+soy un comentario
+multilinea}
+
+{hola hola de nuevo tengo llaves }
+
+(* soy otro comentario multilinea
+tengo 3
+lineas*)
+
+(*adios mundo*)
