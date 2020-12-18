@@ -10,6 +10,8 @@
     %file "Number.jff";
     %file "Identifier.jff";
     %file "Symbols.jff";
+    %file "CompileDirectives.jff";
+    %file "CharString.jff";
     %file "Start.jff";
 
     %token.descriptions {
@@ -41,7 +43,16 @@
         KwFor = "for",
         KwDo = "do",
         KwWrite = "write",
-        KwWriteln = "writeln"
+        KwWriteln = "writeln",
+        charConstant = "charConstant",
+        stringConstant = "stringConstant",
+        KwTrue = "true",
+        KwFalse = "false",
+        KwFunction = "function",
+        KwProcedure = "procedure",
+        KwRead = "read",
+        KwContinue = "continue",
+        KwTo = "to"
     }
 
     %generate.state_enum(State);
@@ -54,6 +65,7 @@ Token Lexer::getNextToken()
     %generate.lexer(text);
 */
 }
+
 
 Token Lexer::findKeyword(const std::string& str)
 {
@@ -85,9 +97,36 @@ Token Lexer::findKeyword(const std::string& str)
     else if(isEqual(str, "do")){ return Token::KwDo ;}
     else if(isEqual(str, "write")){ return Token::KwWrite ;}
     else if(isEqual(str, "writeln")){ return Token::KwWriteln ;}
+    else if(isEqual(str, "char")){ return Token::charConstant ;}
+    else if(isEqual(str, "string")){ return Token::stringConstant ;}
+    else if(isEqual(str, "true")){ return Token::KwTrue ;}
+    else if(isEqual(str, "false")){ return Token::KwFalse ;}
+    else if(isEqual(str, "function")){ return Token::KwFunction ;}
+    else if(isEqual(str, "procedure")){ return Token::KwProcedure ;}
+    else if(isEqual(str, "read")){ return Token::KwRead ;}
+    else if(isEqual(str, "continue")){ return Token::KwContinue ;}
+    else if(isEqual(str, "to")){ return Token::KwTo ;}
     else { return Token::ID; }
 }
 
+Token Lexer::getCharOrString(const std::string& str)
+{
+    // std::cout<<str<<std::endl;
+
+    if (str.length() == 2){
+        throw "Invalid Char Assignation"; //TODO: Manejar mejor esta excepcion.
+    }else if(str.length() == 3){
+        char myChar = (int)str[1];
+        if(myChar >=32 && myChar <= 126)
+            return Token::charConstant;
+        else
+            throw "Invalid Char Assignation"; //TODO: Manejar mejor esta excepcion.
+    }else if(str == "''''"){
+        return Token::charConstant;
+    }
+
+    return Token::stringConstant;
+}
 
 const char *Lexer::tokenToString(Token tk)
 {
@@ -98,6 +137,10 @@ const char *Lexer::tokenToString(Token tk)
 
 bool Lexer::isEqual(const std::string& a, const std::string& b)
 {
+
+    if(a.length() != b.length())
+        return false;
+
     return std::equal(a.begin(), a.end(), b.begin(), [](char a, char b) {
                         return tolower(a) == tolower(b);
                     });

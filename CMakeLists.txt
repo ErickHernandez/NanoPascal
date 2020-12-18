@@ -15,9 +15,11 @@ add_custom_command (
           ${PROJECT_SOURCE_DIR}/fa/Number.jff
           ${PROJECT_SOURCE_DIR}/fa/Identifier.jff
           ${PROJECT_SOURCE_DIR}/fa/Symbols.jff
+          ${PROJECT_SOURCE_DIR}/fa/CompileDirectives.jff
+          ${PROJECT_SOURCE_DIR}/fa/CharString.jff
 )
 
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
 
-add_executable(${PROJECT_NAME} main.cpp lexer.cpp)
+add_executable(${PROJECT_NAME} main.cpp lexer.cpp) 

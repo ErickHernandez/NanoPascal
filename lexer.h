@@ -31,6 +31,7 @@ public:
     
     Token getNextToken();
     Token findKeyword(const std::string& str);
+    Token getCharOrString(const std::string& str);
     static const char *tokenToString(Token tk);
 
 private:

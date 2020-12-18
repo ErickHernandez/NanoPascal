@@ -1,66 +1,66 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
-	<type>fa</type>
-	<automaton>
-		<!--The list of states.-->
-		<state id="0" name="q0">
-			<x>62.0</x>
-			<y>174.0</y>
-			<initial/>
-		</state>
-		<state id="1" name="q1">
-			<x>190.0</x>
-			<y>174.0</y>
-		</state>
-		<state id="2" name="q2">
-			<x>306.0</x>
-			<y>173.0</y>
-			<label>return findKeyword(text);</label>
-		</state>
-		<!--The list of transitions.-->
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>[a-z]</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>[0-9]</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>[a-z]</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>_</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>[A-Z]</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>[A-Z]</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>2</to>
-			<read/>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>_</read>
-		</transition>
-		<note>
-			<text>Name:identifier</text>
-			<x>45.0</x>
-			<y>44.0</y>
-		</note>
-	</automaton>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>&#13;
+	<type>fa</type>&#13;
+	<automaton>&#13;
+		<!--The list of states.-->&#13;
+		<state id="0" name="q0">&#13;
+			<x>62.0</x>&#13;
+			<y>174.0</y>&#13;
+			<initial/>&#13;
+		</state>&#13;
+		<state id="1" name="q1">&#13;
+			<x>190.0</x>&#13;
+			<y>174.0</y>&#13;
+		</state>&#13;
+		<state id="2" name="ret:">&#13;
+			<x>306.0</x>&#13;
+			<y>173.0</y>&#13;
+			<label>return findKeyword(text);</label>&#13;
+		</state>&#13;
+		<!--The list of transitions.-->&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>1</to>&#13;
+			<read>[A-Z]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>2</to>&#13;
+			<read/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>[0-9]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>[a-z]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>1</to>&#13;
+			<read>_</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>[A-Z]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>1</to>&#13;
+			<read>[a-z]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>_</read>&#13;
+		</transition>&#13;
+		<note>&#13;
+			<text>Name:identifier</text>&#13;
+			<x>45.0</x>&#13;
+			<y>44.0</y>&#13;
+		</note>&#13;
+	</automaton>&#13;
 </structure>
