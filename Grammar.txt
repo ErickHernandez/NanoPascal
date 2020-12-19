@@ -1,0 +1,55 @@
+<program> -> program ID ’;’ [variable-section] <subprogram-decl>* begin <statement>* end ’.’
+<variable-section> -> var <variable-decl>+
+<variable-decl> -> {ID}+, ’:’ <type> ’;’
+<type> -> integer | boolean | char | <array-type>
+<array-type> -> array ’[’ intConst ’..’ intConst ’]’ of <type>
+<subprogram-decl> -> <subprogram-header> [variable-section] begin <statement>* end ’;’
+<subprogram-header> -> <function-header> | <procedure-header>
+<function-header> -> function ID [ ’(’ [ {<argument-decl>}+; ] ’)’ ] ’:’ <type> ’;’
+<procedure-header> -> procedure ID [ ’(’ [ {<argument-decl>}+; ] ’)’ ] ’;’
+<argument-decl> -> var ID ’:’ <type> | ID ’:’ <type>
+<statement> -> ID <assign-or-subprogram-call> ’;’
+    | <builtin-func>
+    | if <expr> then <block> [else <block>]
+    | while <expr> do <block>
+    | repeat <block> until <expr> ’;’
+    | for ID ':=' <expr> to <expr> do <block>
+    | break ’;’
+    | continue ’;’
+    | ';'
+<block> -> <statement>
+    | begin <statement>* end
+<assign-or-subprogram-call> -> [ ’[’ <expr> ’]’ ] ’:=’ <expr>   //assign to array pos
+    | ’:=’ <expr>                                               //assign to var
+    | [ ’(’ [ {<expr>}+, ] ’)’ ]                                //subprogram-call
+<builtin-func> -> write ’(’ {<argument>}+, ’)’
+    | writeln [ ’(’ [ {<argument>}+, ] ’)’ ]
+    | read ’(’ {<argument>}+, ’)’
+<argument> -> stringConstant | <expr>
+<lvalue-or-subprogram-call> -> ’[’ <expr> ’]’           //lvalue
+    | [ ’(’ [ {<expr>}+, ] ’)’ ]                        //subprogram-call
+<expr> -> ID <lvalue-or-subprogram-call> 
+    | <builtin-func>
+    | <constant>
+    | <expr> <bin-op> <expr>  
+    | ’-’ <expr>
+    | not <expr>
+    | ’(’ <expr> ’)’
+
+<expr> -> ID <lvalue-or-subprogram-call> [ <expr-bin-op> ]
+    | <builtin-func> [ <expr-bin-op> ]
+    | <constant> [ <expr-bin-op> ]
+    | ’-’ <expr> [ <expr-bin-op> ]
+    | not <expr> [ <expr-bin-op> ]
+    | ’(’ <expr> ’)’ [ <expr-bin-op> ]
+
+<expr-bin-op> -> <bin-op> <expr>
+
+
+<bin-op> -> <arith-op> | <rel-op> | <eq-op> | <cond-op>
+<arith-op> -> ’+’ | ’-’ | ’*’ | div | mod | shl | shr
+<rel-op> -> ’<’ | ’>’ | ’<=’ | ’>=’
+<eq-op> -> ’=’ | ’<>’
+<cond-op> -> and | or | xor
+<constant> -> intConstant | charConstant | <bool-constant>
+<bool-constant> -> true | false

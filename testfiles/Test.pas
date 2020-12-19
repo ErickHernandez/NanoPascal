@@ -1,0 +1,6 @@
+program Test;
+begin
+    ;
+end.
+
+ 

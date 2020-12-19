@@ -1,0 +1,4 @@
+{$ifdef ab}
+{$else}
+{$ifndef cd}
+{$endif}

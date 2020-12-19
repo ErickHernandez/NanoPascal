@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "lexer.h"
+#include "parser.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,11 +20,24 @@ int main(int argc, char *argv[])
 
     Lexer lexer(input);
 
-    Token tk = lexer.getNextToken();
+    //Token tk = lexer.getNextToken();
 
-    while (tk != Token::EoF)
-    {
-        std::cout << "Token: " << Lexer::tokenToString(tk) << ", Lexema: " << lexer.getText() << '\n';
-        tk = lexer.getNextToken();
+    Parser parser(lexer);
+
+    try{
+        parser.parse();
+        std::cout<<"Good Syntax!\n";
+    }catch(const char* msg){
+        std::cerr<<msg<<"\n";
     }
+
+    // while (tk != Token::EoF)
+    // {
+    //     try{
+    //         std::cout << "Token: " << Lexer::tokenToString(tk) << ", Lexema: " << lexer.getText() << '\n';
+    //         tk = lexer.getNextToken();
+    //     } catch(const char* msg){
+    //         std::cerr<<msg<<"\n";
+    //     }
+    // }
 }

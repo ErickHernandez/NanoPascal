@@ -22,4 +22,4 @@ add_custom_command (
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
 
-add_executable(${PROJECT_NAME} main.cpp lexer.cpp) 
+add_executable(${PROJECT_NAME} main.cpp lexer.cpp parser.cpp) 
