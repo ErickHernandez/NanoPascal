@@ -5,6 +5,19 @@
 #include <string>
 #include <istream>
 #include "tokens.h"
+#include "vector"
+#include <algorithm>
+
+class Directive
+{
+public:
+    Directive(std::string variable, std::string type, bool is_valid): variable(variable), type(type), is_valid(is_valid)
+    {}
+
+    std::string variable;
+    std::string type;
+    bool is_valid;
+};
 
 class Lexer
 {
@@ -25,9 +38,6 @@ public:
     {
         std::cerr << "Error: Invalid character: '" << ch << "'\n";
     }
-
-    bool isEqual(const std::string& a, const std::string& b);
-
     
     Token getNextToken();
     Token findKeyword(const std::string& str);
@@ -35,6 +45,17 @@ public:
     static const char *tokenToString(Token tk);
 
 private:
+    void ifdef_fn();
+    void ifndef_fn();
+    void else_fn();
+    void endif_fn();
+    bool vector_contains(std::vector<std::string> list, std::string value);
+    bool isEqual(const std::string& a, const std::string& b);
+    std::string parse_directive(std::string text);
+
+    std::vector<std::string> defined_directives = {"NANOPASCAL"};
+    std::vector<Directive> directives_stack;
+
     std::string text;
     std::istream& input;
 };

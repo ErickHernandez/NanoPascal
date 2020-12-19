@@ -135,6 +135,91 @@ const char *Lexer::tokenToString(Token tk)
 */    
 }
 
+void Lexer::ifdef_fn()
+{
+    std::string directive = parse_directive(text);
+
+    if(vector_contains(defined_directives, directive)){
+        directives_stack.push_back(Directive(directive, "ifdef", true));
+        text = "";
+    } else {
+        directives_stack.push_back(Directive(directive, "ifdef", false));
+        
+        text = "";
+        while(true){
+            int ch = getNextChar();
+            if(ch == '{'){
+                ungetChar(0);
+                break;
+            } 
+        }
+    }
+}
+
+void Lexer::ifndef_fn()
+{
+    std::string directive = parse_directive(text);
+
+    if(!vector_contains(defined_directives, directive)){
+        directives_stack.push_back(Directive(directive, "ifndef", true));
+        text = "";
+    } else {
+        directives_stack.push_back(Directive(directive, "ifndef", false));
+        
+        text = "";
+        while(true){
+            int ch = getNextChar();
+            if(ch == '{'){
+                ungetChar(0);
+                break;
+            } 
+        }
+    }
+}
+
+void Lexer::else_fn()
+{
+    Directive dir = directives_stack.back();
+
+    if(dir.is_valid && dir.type == "ifdef"){
+        text = "";
+
+        while(true){
+            int ch = getNextChar();
+            if(ch == '{'){
+                ungetChar(0);
+                break;
+            } 
+        }
+    } else if(dir.is_valid == false && dir.type == "ifdef"){
+        text = "";
+    }
+
+    if(dir.is_valid && dir.type == "ifndef"){
+        text = "";
+
+        while(true){
+            int ch = getNextChar();
+            if(ch == '{'){
+                ungetChar(0);
+                break;
+            } 
+        }
+    } else if(dir.is_valid == false && dir.type == "ifndef"){
+        text = "";
+    }
+
+    
+}
+
+void Lexer::endif_fn()
+{
+    text = "";
+    directives_stack.pop_back();
+}
+
+
+
 bool Lexer::isEqual(const std::string& a, const std::string& b)
 {
 
@@ -144,4 +229,19 @@ bool Lexer::isEqual(const std::string& a, const std::string& b)
     return std::equal(a.begin(), a.end(), b.begin(), [](char a, char b) {
                         return tolower(a) == tolower(b);
                     });
+}
+
+bool Lexer::vector_contains(std::vector<std::string> list, std::string value)
+{
+    if(std::find(list.begin(), list.end(), value) != list.end())
+        return true;
+    else
+        return false;
+}
+
+std::string Lexer::parse_directive(std::string text)
+{
+    text = text.substr(text.find(" ")+1, text.length());
+    text = text.substr(0, text.length()-1);
+    return text;
 }
